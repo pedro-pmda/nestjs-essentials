@@ -4,7 +4,7 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable()
 export class UppercaseInterceptor implements NestInterceptor {
@@ -16,7 +16,7 @@ export class UppercaseInterceptor implements NestInterceptor {
       .handle()
       .pipe(
         map((data: string) =>
-          typeof data === 'string' ? data.toUpperCase() : Data,
+          typeof data === 'string' ? data.toUpperCase() : data,
         ),
       );
   }

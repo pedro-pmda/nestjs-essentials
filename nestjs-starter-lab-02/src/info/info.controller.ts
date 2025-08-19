@@ -1,5 +1,7 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { Request } from '@nestjs/common';
+import { AuthGuard } from 'src/core/guards/auth.guard';
+import { RoleGuard } from 'src/core/guards/role.guard';
 import { LoggingService } from 'src/logging/logging.service';
 
 export interface RequestCustom extends Partial<Request> {
@@ -10,6 +12,7 @@ export interface RequestCustom extends Partial<Request> {
 export class InfoController {
   constructor(private readonly logginService: LoggingService) {}
 
+  @UseGuards(AuthGuard, RoleGuard)
   @Get()
   extractReqInfo(@Req() request: Request) {
     return {

@@ -5,9 +5,10 @@ import { UsersController } from './users/users.controller';
 import { InfoController } from './info/info.controller';
 import { LoggingService } from './logging/logging.service';
 import { DataController } from './data/data.controller';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
-  imports: [],
+  imports: [MessagesModule],
   controllers: [AppController, UsersController, InfoController, DataController],
   providers: [AppService, LoggingService],
 })

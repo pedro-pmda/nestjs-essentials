@@ -6,11 +6,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from '../users.service';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { UpdateUserDto } from '../dtos/update-user.dto';
+import { MockAuthGuard } from '../auth/mock-auth.guard';
 
 @Controller('users')
 export class UserController {
@@ -22,11 +24,13 @@ export class UserController {
   }
 
   @Post()
+  @UseGuards(MockAuthGuard)
   createUser(@Body(new ValidationPipe()) createUserDto: CreateUserDto) {
     return this.usersService.createUser(createUserDto);
   }
 
   @Patch(':id')
+  @UseGuards(MockAuthGuard)
   updateUser(
     @Body(new ValidationPipe()) updateUserDto: UpdateUserDto,
     @Param('id', ParseIntPipe) id: number,

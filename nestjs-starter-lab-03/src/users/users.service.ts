@@ -15,6 +15,10 @@ export class UsersService {
     return this.users;
   }
 
+  findOne(id: number) {
+    return this.users.find((user) => user.id === id);
+  }
+
   createUser(user: CreateUserDto) {
     this.users.push({
       ...user,

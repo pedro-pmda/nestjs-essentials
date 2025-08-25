@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { User } from './entities/users.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import { ExternalUserDataService } from 'src/external-services/external-user-data.service';
 
 @Injectable()
 export class UsersService {
@@ -11,12 +12,28 @@ export class UsersService {
     { id: 2, name: 'Kasereka Akim', email: 'kase@myapp.com' },
   ];
 
-  findAll(): User[] {
-    return this.users;
+  constructor(
+    @Inject('EXTERNAL_USER_DATA_SERVICE')
+    private externalUserService: ExternalUserDataService,
+  ) {}
+
+  // findAll(): User[] {
+  //   return this.users;
+  // }
+
+  async findAll(): Promise<User[]> {
+    const externalUsers = await this.externalUserService.fetchUsers();
+    return externalUsers;
   }
 
-  findOne(id: number) {
-    return this.users.find((user) => user.id === id);
+  // async findOne(id: number): Promise<User | undefined> {
+  //   return this.users.find((user) => user.id === id);
+  // }
+
+  async findOne(id: number): Promise<User | undefined> {
+    //return this.users.find((user) => user.id === id);
+    const externalUsers = await this.externalUserService.fetchUsers();
+    return externalUsers.find((user) => user.id === id);
   }
 
   createUser(user: CreateUserDto) {

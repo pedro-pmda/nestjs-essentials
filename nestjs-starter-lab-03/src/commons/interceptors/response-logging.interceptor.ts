@@ -2,6 +2,7 @@ import {
   CallHandler,
   ExecutionContext,
   Injectable,
+  Logger,
   NestInterceptor,
 } from '@nestjs/common';
 import { map, Observable } from 'rxjs';
@@ -19,10 +20,9 @@ export class ResponseLoggingInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data: T) => {
         const executionTime = Date.now() - start;
-        console.log(
-          `Request to ${request.method} - ${request.url} took ${executionTime}ms`,
+        Logger.log(
+          `INTERCEPTOR - Request to ${request.method} - ${request.url} took ${executionTime}ms`,
         );
-
         return {
           success: !(data instanceof Error) && data !== null,
           data: data,

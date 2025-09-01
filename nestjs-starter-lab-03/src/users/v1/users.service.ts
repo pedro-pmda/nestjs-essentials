@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { User } from './entities/users.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
@@ -26,10 +26,6 @@ export class UsersService {
     return externalUsers;
   }
 
-  // async findOne(id: number): Promise<User | undefined> {
-  //   return this.users.find((user) => user.id === id);
-  // }
-
   async findOne(id: number): Promise<User | undefined> {
     //return this.users.find((user) => user.id === id);
     const externalUsers = await this.externalUserService.fetchUsers();
@@ -37,6 +33,9 @@ export class UsersService {
   }
 
   createUser(user: CreateUserDto) {
+    // For testing puropose filter
+    //throw new HttpException('User already exists', HttpStatus.CONFLICT);
+
     this.users.push({
       ...user,
       id: this.users.length + 1,

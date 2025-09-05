@@ -2,6 +2,46 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  """The unique id of a user"""
+  id: Int!
+
+  """Tje name of a user"""
+  name: String!
+
+  """The email of a user"""
+  email: String!
+}
+
 type Query {
   getHello: String!
+  users: [User!]!
+  user(id: Int!): User!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+}
+
+input CreateUserInput {
+  """The unique id of a user"""
+  id: Int!
+
+  """Tje name of a user"""
+  name: String!
+
+  """The email of a user"""
+  email: String!
+}
+
+input UpdateUserInput {
+  id: Int!
+
+  """Tje name of a user"""
+  name: String
+
+  """The email of a user"""
+  email: String
 }

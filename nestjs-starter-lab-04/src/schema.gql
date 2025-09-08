@@ -15,14 +15,29 @@ type User {
 
 type Query {
   getHello: String!
+
+  """Devuelve la lista completa de usuarios"""
   users: [User!]!
-  user(id: Int!): User!
+
+  """Busca un usuario por su ID"""
+  user(
+    """Identificador único del usuario"""
+    id: Int!
+  ): User!
 }
 
 type Mutation {
+  """Crea un nuevo usuario en el sistema"""
   createUser(createUserInput: CreateUserInput!): User!
+
+  """Actualiza los datos de un usuario existente"""
   updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User!
+
+  """Elimina un usuario por ID"""
+  removeUser(
+    """Identificador del usuario a eliminar"""
+    id: Int!
+  ): User!
 }
 
 input CreateUserInput {

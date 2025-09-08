@@ -51,7 +51,7 @@ export class UsersService {
   remove(id: number) {
     const userIndex = this.users.findIndex((user) => user.id === id);
     if (userIndex >= 0) {
-      let userRemoved = this.users[userIndex];
+      const userRemoved = this.users[userIndex];
       this.users.splice(userIndex, 1);
       return userRemoved;
     } else {

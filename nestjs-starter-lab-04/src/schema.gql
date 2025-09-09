@@ -60,3 +60,8 @@ input UpdateUserInput {
   """The email of a user"""
   email: String
 }
+
+type Subscription {
+  userCreated: User!
+  userUpdated: User!
+}

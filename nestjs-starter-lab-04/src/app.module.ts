@@ -14,6 +14,7 @@ import { UsersModule } from './users/users.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      subscriptions: { 'graphql-ws': true },
     }),
     UsersModule,
   ],

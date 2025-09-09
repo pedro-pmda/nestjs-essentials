@@ -11,3 +11,11 @@ export class User {
   @Field(() => String, { description: 'The email of a user' })
   email: string;
 }
+
+@ObjectType()
+export class UserSubscription {
+  @Field(() => User)
+  userAdded: User;
+  @Field(() => User)
+  userUpdated: User;
+}

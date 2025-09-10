@@ -14,6 +14,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { MockAuthGuard } from './auth/mock-auth.guard';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { User } from './entities/users.entity';
 
 @ApiTags('Users')
 @Controller('users')
@@ -23,16 +24,17 @@ export class UserController {
   @ApiOperation({ summary: 'Retrieve all the users' })
   @ApiOkResponse({
     description: 'The users has been succesfully retrieved',
-    type: 'UsernEntity[]',
+    type: User,
+    isArray: true,
   })
   @Get()
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
   @ApiOperation({ summary: 'Retrieve a user by ID' })
   @ApiOkResponse({
     description: 'The user has been succesfully retrieved',
-    type: 'UsernEntity',
+    type: User,
   })
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
@@ -42,7 +44,6 @@ export class UserController {
   @ApiOperation({ summary: 'Create a new user' })
   @ApiOkResponse({
     description: 'The user has been succesfully created',
-    type: 'UsernEntity',
   })
   @Post()
   @UseGuards(MockAuthGuard)
@@ -53,7 +54,6 @@ export class UserController {
   @ApiOperation({ summary: 'Update a user by ID' })
   @ApiOkResponse({
     description: 'The user has been succesfully updated',
-    type: 'UsernEntity',
   })
   @Patch(':id')
   @UseGuards(MockAuthGuard)

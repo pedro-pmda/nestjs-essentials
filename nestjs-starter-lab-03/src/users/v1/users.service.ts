@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { User } from './entities/users.entity';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
-import { ExternalUserDataService } from 'src/external-services/external-user-data.service';
+import { ExternalUserDataService } from '../../external-services/external-user-data.service';
 
 @Injectable()
 export class UsersService {
@@ -36,10 +36,13 @@ export class UsersService {
     // For testing puropose filter
     //throw new HttpException('User already exists', HttpStatus.CONFLICT);
 
-    this.users.push({
+    const newUser = {
       ...user,
       id: this.users.length + 1,
-    });
+    };
+
+    this.users.push(newUser);
+    return newUser;
   }
 
   updateUser(user: UpdateUserDto & { id: number }) {
@@ -53,5 +56,6 @@ export class UsersService {
       email: user.email ?? this.users[index].email,
       id: this.users[index].id,
     };
+    return this.users[index];
   }
 }

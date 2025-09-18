@@ -8,6 +8,7 @@ import {
   Post,
   UseGuards,
   ValidationPipe,
+  Version,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -28,6 +29,7 @@ export class UserController {
     isArray: true,
   })
   @Get()
+  @Version('1')
   findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
